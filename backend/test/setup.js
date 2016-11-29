@@ -12,7 +12,7 @@ chai.config.includeStack = true
 global.browserInstance
 
 beforeEach(() => {
-  global.browserInstance = chai.request.agent(server)
+  global.browserInstance = chai.request.agent(app)
   /*
    * This request needs to empty out and migrate up your database
    */
