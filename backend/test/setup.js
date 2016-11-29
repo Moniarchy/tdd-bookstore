@@ -4,7 +4,7 @@ process.env.PORT = process.env.PORT || '3123'
 global.chai = require('chai')
 global.expect = chai.expect
 global.chaiHttp = require('chai-http')
-global.server = require('../app')
+global.app = require('../app')
 
 chai.use(chaiHttp)
 chai.config.includeStack = true
@@ -12,7 +12,7 @@ chai.config.includeStack = true
 global.browserInstance
 
 beforeEach(() => {
-  global.browserInstance = chai.request.agent(server)
+  global.browserInstance = chai.request.agent(app)
   /*
    * This request needs to empty out and migrate up your database
    */

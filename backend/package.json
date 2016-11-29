@@ -3,7 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www"
+    "start": "nodemon ./bin/www",
+    "test": "mocha ./test/setup.js --recursive test/",
+    "test:dev": "npm test --watch"
+
   },
   "dependencies": {
     "body-parser": "~1.15.1",
@@ -13,5 +16,11 @@
     "jade": "~1.11.0",
     "morgan": "~1.7.0",
     "serve-favicon": "~2.3.0"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-http": "^3.0.0",
+    "mocha": "^3.1.2",
+    "nodemon": "^1.11.0"
   }
 }

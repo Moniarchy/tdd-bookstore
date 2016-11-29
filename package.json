@@ -4,7 +4,8 @@
   "description": "Test Driven Book Store",
   "main": "index.js",
   "scripts": {
-    "test": "mocha ./backend/test/setup.js --recursive test/"
+    "test": "mocha ./backend/test/setup.js --recursive test/",
+    "test:dev": "npm test --watch"
   },
   "engines": {
     "node": ">=7.0.0",
