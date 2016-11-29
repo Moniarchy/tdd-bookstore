@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha ./backend/test/setup.js --recursive test/",
-    "test:dev": "npm test --watch"
+    "test:dev": "npm test --watch",
+    "db:create": "createdb tddBookstore",
+    "db:setup": "psql tddBookstore < schema.sql"
   },
   "engines": {
     "node": ">=7.0.0",
