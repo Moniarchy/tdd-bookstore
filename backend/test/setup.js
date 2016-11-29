@@ -4,7 +4,7 @@ process.env.PORT = process.env.PORT || '3123'
 global.chai = require('chai')
 global.expect = chai.expect
 global.chaiHttp = require('chai-http')
-global.server = require('../app')
+global.app = require('../app')
 
 chai.use(chaiHttp)
 chai.config.includeStack = true
