@@ -5,8 +5,9 @@ const logger = require('morgan')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 
-const routes = require('./routes/index')
-const users = require('./routes/users')
+const routes = require('./routes/api/index')
+const users = require('./routes/api/users')
+const books = require('./routes/api/books')
 
 const app = express()
 
@@ -22,8 +23,11 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 
-app.use('/', routes)
-app.use('/users', users)
+// app.use(app.router)
+// routes.initialize(app)
+app.use('/api/', routes)
+app.use('/api/users', users)
+app.use('/api/books', books)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

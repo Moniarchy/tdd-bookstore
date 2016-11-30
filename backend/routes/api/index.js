@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../queries')
+const db = require('../../queries')
 
 router.get( '/', ( request, response, next ) => {
   response.render( 'index', { title: 'Express' });
@@ -10,8 +10,11 @@ router.get( '/ping', ( request, response, next ) => {
   response.send( 'pong')
 })
 
-router.post( '/api/test/reset-db', ( request, response ) => {
+router.post( '/test/reset-db', ( request, response ) => {
   db.reset()
+    .then(() => {
+      db.setup()
+    })
     .then( () => {
       response.json(null)
     })
