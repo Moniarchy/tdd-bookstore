@@ -23,10 +23,57 @@ const createBook = ( title, author, year, genres ) => {
   RETURNING *`
 
   const variables = [ title, author, year, genres ]
-  return manyOrNone( sql, variables )
+  return database.manyOrNone( sql, variables )
 }
 
+// const getBooks = ( page = 1 ) => {
+//   const offset = ( page - 1 ) * 10
+//   const sql = `SELECT * FROM books LIMIT 10 OFFSET $2`
+//   return db.manyOrNone(sql, offset)
+// }
+//
+// const searchBook = (id) => {
+//   const sql = `SELECT * FROM books WHERE id = ${id}`
+//   return db.oneOrNone(sql)
+// }
+//
+// const getBooksByAuthor = (str) => {
+//   const sql = `SELECT * FROM books WHERE author = ${str}`
+//   return db.oneOrNone(sql)
+// }
+//
+// const getBooksByTitle = (str) => {
+//   const sql = `SELECT * FROM books WHERE title = ${str}`
+//   return db.oneOrNone(sql)
+// }
+//
+// const getBooksByYear = (num) => {
+//   const sql = `SELECT * FROM books WHERE year = ${num}`
+//   return db.oneOrNone(sql)
+// }
+//
+// const getBookByTitleAndYear = (str,num) => {
+//   const sql = `SELECT * FROM books WHERE title = ${str} AND year = ${num}`
+//   return db.oneOrNone(sql)
+// }
+//
+// const getAuthors = (id) => {
+//   const sql = `SELECT DISTINCT author FROM books LIMIT 10`
+//   return db.oneOrNone(sql)
+// }
+//
+// const getBooksByGenre = (str) => {
+//   const sql = `SELECT * FROM books WHERE genre = ${str}`
+//   return db.oneOrNone(sql)
+// }
+//
+// const deleteBook = (id) => {
+//   const sql = `DELETE * FROM books WHERE id = ${id}`
+//   return db.none()
+// }
+
 module.exports = {
+  createBook,
   setup,
   reset,
 }
