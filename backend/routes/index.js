@@ -11,9 +11,11 @@ router.get( '/ping', ( request, response, next ) => {
 })
 
 router.post( '/api/test/reset-db', ( request, response ) => {
-  db.dropDatabase()
+  db.resetDb()
   .then( response.status( 200 ))
-  .catch( error => response.render( 'error', { error }) )
+  .catch( error => {
+    response.render( 'error', { error })
+  })
 })
 
 module.exports = router;
