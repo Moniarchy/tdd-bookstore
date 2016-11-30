@@ -55,7 +55,7 @@ describe('HTTP Server', () => {
   })
 
   describe('POST /api/books', () => {
-    it('should create a book', () => {
+    it.only('should create a book', () => {
       return request('post', '/api/books', {
         "title":"Starship Troopers",
         "author":"Robert A. Heinlein",

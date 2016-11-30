@@ -14,6 +14,17 @@ const reset = () => {
     TRUNCATE books;
   `)
 }
+const createBook = ( title, author, year, genres ) => {
+  const sql =`
+  INSERT into
+    books( title, author, year, genres )
+  VALUES
+    ( $1, $2, $3, $4 )
+  RETURNING *`
+
+  const variables = [ title, author, year, genres ]
+  return manyOrNone( sql, variables )
+}
 
 module.exports = {
   setup,
