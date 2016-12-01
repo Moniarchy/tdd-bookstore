@@ -13,7 +13,7 @@ router.post( '/', ( request, response ) => {
 
   db.createBook( title, author, year, genres )
     .then( book => {
-      // console.log(book)
+      console.log(book)
       if(book.title) {
         response.status(201).json(book)
       }else{ response.body = { error:{ message: "title cannot be blank" }}
@@ -21,7 +21,7 @@ router.post( '/', ( request, response ) => {
     })
     .catch( error => {
        response.status(500).json({ error })
-     })
+    })
 })
 // router.get('/api/books', (request, response, next) => {
 //   let page = ( parseInt( req.query.page, 10 ) ) || 1

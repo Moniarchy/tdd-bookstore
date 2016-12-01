@@ -30,12 +30,12 @@ const createBook = ( title, author, year, genres ) => {
       return data
     })
     .then(( [ author, genres, book ] ) => {
-      console.log(book)
+      // console.log(book)
       return Promise.all([
         associateBookWithAuthor( book, author ),
         associateBookWithGenre( book, genres ),
       ]).then( result => {
-        console.log(result);
+        // console.log(result);
         result} )
     })
     .catch( error => {console.log( 'E', error ); throw error})
@@ -77,9 +77,10 @@ const associateBookWithAuthor = ( book, author ) => {
     RETURNING
       *
   `
-  const variables = [book.id, author.id]
+  const variables = [book.id, author.id, author.name]
   return database.one( sql, variables )
 }
+
 const associateBookWithGenre = ( book, genres ) => {
   const sql = `
     INSERT INTO
@@ -89,8 +90,8 @@ const associateBookWithGenre = ( book, genres ) => {
     RETURNING
       *
   `
-  const variables = [book.id, genres.id]
-  return database.one( sql, [book.id, genres.id] )
+  const variables = [book.id, genres.id, genres.name]
+  return database.one( sql, variables )
 }
 
 const deserializeGenres = genres => {
