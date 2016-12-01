@@ -26,24 +26,23 @@ const createBook = ( title, author, year, genres ) => {
     database.one( sql, variables ).catch( error => { console.log( 'C', error  ); throw error })
   ]).then( data => {
       deserializeGenres(data[1].name)
-      console.log(data[1].name)
-      data[1].name = JSON.parse(data[1].name.sort())
+      data[1].name = JSON.parse(data[1].name)
       return data
     })
     .then(( [ author, genres, book ] ) => {
-
-
-      // console.log(book)
+      console.log(book)
       return Promise.all([
         associateBookWithAuthor( book, author ),
         associateBookWithGenre( book, genres ),
-      ]).then(() => book )
+      ]).then( result => {
+        console.log(result);
+        result} )
     })
     .catch( error => {console.log( 'E', error ); throw error})
+
 }
 
 const createAuthor = ( authorName ) => {
-
   const sql = `
     INSERT INTO
       authors (name)
@@ -65,7 +64,7 @@ const createGenre = ( genreName ) => {
     RETURNING
       *
   `
-  const variables = [genreName]
+  const variables = [JSON.stringify(genreName.sort())]
   return database.one( sql, variables )
 }
 
@@ -75,6 +74,8 @@ const associateBookWithAuthor = ( book, author ) => {
       book_authors( book_id, author_id )
     VALUES
       ( $1, $2 )
+    RETURNING
+      *
   `
   const variables = [book.id, author.id]
   return database.one( sql, variables )
@@ -85,15 +86,16 @@ const associateBookWithGenre = ( book, genres ) => {
       book_genres( book_id, genre_id )
     VALUES
       ( $1, $2 )
+    RETURNING
+      *
   `
   const variables = [book.id, genres.id]
   return database.one( sql, [book.id, genres.id] )
 }
 
-const deserializeGenres = book => {
-  console.log(typeof book);
-  JSON.stringify(book)
-  return book
+const deserializeGenres = genres => {
+  genres = JSON.stringify(genres)
+  return genres
 }
 
 
