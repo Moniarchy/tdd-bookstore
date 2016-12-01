@@ -6,23 +6,57 @@ const bodyParser = require('body-parser')
 
 //CreateBook
 router.post( '/', ( request, response ) => {
-  const { title, author, year, genres } = request.body
+  const { title, year, author, genres } = request.body
   // console.log(title, author, year, genres);
 
-  // console.log(Array.isArray(genres))
-
-  db.createBook( title, author, year, genres )
+  // First, create the book
+  db.createBook( title, year )
+  // then find or create the authors
     .then( book => {
-      console.log(book)
-      if(book.title) {
-        response.status(201).json(book)
-      }else{ response.body = { error:{ message: "title cannot be blank" }}
-        return response.status( 400 ).json( response.body ) }
+      db.createAuthor( author )
+      const authors = [] // get these
+        .then(data => {return authors})
+
+      return { book, authors }
     })
-    .catch( error => {
-       response.status(500).json({ error })
+  // then associate the authors with the book
+    .then( ({ book, authors }) => {
+      db.associateBookWithAuthor( book, authors )
+      return book
     })
+  // then find or create the genres
+    .then( book => {
+      db.createGenre( book, genres )
+        .then(data => {
+          console.log( '-----', data )
+        })
+      const genres = [] // get these
+
+      return { book, genres }
+    })
+  // then associate the genres with the book
+    // .then( ({ book, genres }) => {
+    //   db.associateBookWithGenre( book, genres )
+    //   return book
+    // })
+  // then return the book as json
+    .then( book => response.status( 201 ).json( book ))
+
+  // console.log(Array.isArray(genres))
+  // db.createGenre( genres )
 })
+// db.createBook( title, year )
+// .then( book => {
+//   console.log('---------', book)
+//   if(book.title) {
+//     response.status(201).json(book)
+//   }else{ response.body = { error:{ message: "title cannot be blank" }}
+//   return response.status( 400 ).json( response.body ) }
+// })
+// .catch( error => {
+//   response.status(500).json({ error })
+// })
+// db.createAuthor( author )
 // router.get('/api/books', (request, response, next) => {
 //   let page = ( parseInt( req.query.page, 10 ) ) || 1
 //   db.getBooks( page )
