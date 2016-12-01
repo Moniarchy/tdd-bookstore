@@ -2,15 +2,26 @@ const express = require('express');
 const router = express.Router();
 const { createBook } = require('../../queries')
 const db = require('../../queries')
+const bodyParser = require('body-parser')
 
 //CreateBook
 router.post( '/', ( request, response ) => {
   const { title, author, year, genres } = request.body
-  console.log({ title, author, year, genres })
+  // console.log(title, author, year, genres);
+
+  // console.log(Array.isArray(genres))
+
   db.createBook( title, author, year, genres )
-    .then( () => {
-      response.json(null) })
-    .catch( error => { response.status(500).json({ error }) })
+    .then( book => {
+      // console.log(book)
+      if(book.title) {
+        response.status(201).json(book)
+      }else{ response.body = { error:{ message: "title cannot be blank" }}
+        return response.status( 400 ).json( response.body ) }
+    })
+    .catch( error => {
+       response.status(500).json({ error })
+     })
 })
 // router.get('/api/books', (request, response, next) => {
 //   let page = ( parseInt( req.query.page, 10 ) ) || 1
