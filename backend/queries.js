@@ -43,6 +43,7 @@ const createBook = book => {
         ...genresIds.map( genreId => associateBookWithGenre( bookId, genreId ))
       ])
   })
+  .then( data => book )
   .catch( error => console.log( 'ERROR', error ))
 }
 
