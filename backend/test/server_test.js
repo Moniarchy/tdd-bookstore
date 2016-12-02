@@ -55,7 +55,7 @@ describe('HTTP Server', () => {
   })
 
   describe('POST /api/books', () => {
-    it('should create a book', () => {
+    it.only('should create a book', () => {
       return request('post', '/api/books', {
         "title":"Starship Troopers",
         "author":"Robert A. Heinlein",
@@ -73,7 +73,7 @@ describe('HTTP Server', () => {
       })
     })
     context('when missing title', () => {
-      it.only('should render 400 bad request', () => {
+      it('should render 400 bad request', () => {
         return request('post', '/api/books', {
           "author":"Robert A. Heinlein",
           "year": 2004
@@ -108,6 +108,7 @@ describe('HTTP Server', () => {
           expect(response.headers['content-type']).to
             .eql('application/json; charset=utf-8')
           const books = response.body
+          console.log('does this work', books);
           expect(books.length).to.eql(10)
           books.forEach(book => {
             const fixture = findFixtureForBook(book)
