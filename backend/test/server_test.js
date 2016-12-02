@@ -47,7 +47,7 @@ describe('HTTP Server', () => {
 
   describe('GET /ping', () => {
     it('should respond with "pong"', () => {
-      return request('get', '/ping').then(response => {
+      return request('get', '/api/ping').then(response => {
         expectResponseToHaveStatus(response, 200)
         expect(response.text).to.eql('pong')
       })
