@@ -16,8 +16,11 @@ beforeEach(() => {
   /*
    * This request needs to empty out and migrate up your database
    */
+   const started = Date.now()
+
   return request('post', '/api/test/reset-db')
     .then(response => {
+      console.log( 'response received in', Date.now() - started )
       if (response.status !== 200) throw new Error(`
 
 Failed to reset your database!

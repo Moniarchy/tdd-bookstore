@@ -55,7 +55,7 @@ describe('HTTP Server', () => {
   })
 
   describe('POST /api/books', () => {
-    it.only('should create a book', () => {
+    it('should create a book', () => {
       return request('post', '/api/books', {
         "title":"Starship Troopers",
         "author":"Robert A. Heinlein",
@@ -108,7 +108,6 @@ describe('HTTP Server', () => {
           expect(response.headers['content-type']).to
             .eql('application/json; charset=utf-8')
           const books = response.body
-          console.log('does this work', books);
           expect(books.length).to.eql(10)
           books.forEach(book => {
             const fixture = findFixtureForBook(book)
