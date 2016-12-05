@@ -130,6 +130,29 @@ const getBooks = page => {
   // })
 }
 
+const retrieveBooksByAuthor = authorName => {
+  const variables = [
+    '%'+query.replace(/\s+/,'%').toLowerCase()+'%',
+    offset,
+  ]
+  return database.query('SELECT * FROM books JOIN book_authors ON book_authors.book_id = books.id JOIN authors ON book_authors.author_id = authors.id WHERE name = $1', [variables])
+}
+
+const showAuthors = page => {
+  const offset = ( page - 1 ) * 10
+
+  return database.query( 'SELECT name AS authors FROM authors LIMIT 10 OFFSET $1', [offset] )
+}
+
+const showGenres = page => {
+  const offset = ( page - 1 ) * 10
+
+  return database.query( 'SELECT name AS genres FROM genres LIMIT 10 OFFSET $1', [offset] )
+}
+
+
+// getOneBook
+
 const getAuthors = bookId => {
   return database.query('SELECT * FROM authors JOIN book_authors ON book_authors.author_id = authors.id WHERE id = $1', [bookId])
 }
@@ -141,6 +164,9 @@ const getGenres = bookId => {
 
 module.exports = {
   getBooks,
+  showAuthors,
+  showGenres,
+  retrieveBooksByAuthor,
   createBook,
   setup,
   reset,

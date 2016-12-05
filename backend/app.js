@@ -8,6 +8,9 @@ const bodyParser = require('body-parser')
 const routes = require('./routes/api/index')
 const users = require('./routes/api/users')
 const books = require('./routes/api/books')
+const authors = require('./routes/api/authors')
+const genres = require('./routes/api/genres')
+
 
 const app = express()
 
@@ -25,6 +28,8 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use('/api/', routes)
 app.use('/api/users', users)
 app.use('/api/books', books)
+app.use('/api/authors', authors)
+app.use('/api/genres', genres)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
