@@ -73,7 +73,7 @@ describe('HTTP Server', () => {
       })
     })
     context('when missing title', () => {
-      it.only('should render 400 bad request', () => {
+      it('should render 400 bad request', () => {
         return request('post', '/api/books', {
           "author":"Robert A. Heinlein",
           "year": 2004

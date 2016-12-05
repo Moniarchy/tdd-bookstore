@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www",
-    "test": "mocha ./test/setup.js --recursive test/",
+    "test": "mocha ./test/setup.js --recursive test/ --timeout 15000",
     "test:dev": "npm test --watch"
   },
   "dependencies": {

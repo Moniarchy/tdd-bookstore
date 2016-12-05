@@ -31,7 +31,7 @@ DROP TABLE IF EXISTS genres;
 
 CREATE TABLE genres (
   id  SERIAL PRIMARY KEY,
-  name VARCHAR NOT NULL UNIQUE
+  name VARCHAR NOT NULL 
 );
 -- INSERT INTO books (title, author, year, genres) VALUES
 --   ('The Handmaid Tale', 'Margaret Atwood', 1985, 'Sci-fi'),
